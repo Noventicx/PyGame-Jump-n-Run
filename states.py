@@ -1,7 +1,10 @@
-import time
-
 import pygame.draw
-from pygame import KEYDOWN, K_SPACE, K_RETURN, QUIT, K_UP, K_DOWN, KEYUP
+from pygame import KEYDOWN, K_SPACE, K_RETURN, K_UP, K_DOWN, KEYUP, K_ESCAPE
+
+import constants
+from collision import check_collision
+from entities.spritegroups import players, whiteblocks, finishblocks, spikes
+from levelloader import LevelLoader
 from constants import (
     SCREEN_WIDTH,
     BLACK,
@@ -21,7 +24,7 @@ class State(object):
     def update(self):
         pass
 
-    def events(self, events):
+    def events(self, events, screen):
         pass
 
     def clear(self, screen):
@@ -139,6 +142,7 @@ class GameState(State):
 
     def __init__(self):
         super(GameState, self).__init__()
+        LevelLoader.gen_level_group(constants.current_level)
 
     def draw(self, screen):
         self.clear(screen)
@@ -146,13 +150,31 @@ class GameState(State):
         title = font.render("Game Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
         screen.blit(title, title_rect)
+        for finishblock in finishblocks:
+            screen.blit(finishblock.surf, finishblock.rect)
+        for whiteblock in whiteblocks:
+            screen.blit(whiteblock.surf, whiteblock.rect)
+        for player in players:
+            screen.blit(player.surf, player.rect)
+        for spike in spikes:
+            screen.blit(spike.surf, spike.rect)
 
     def events(self, events):
+        players.update(events)
+        check_collision()
         for e in events:
-            if e.type == KEYDOWN and e.key == K_SPACE:
+            if e.type == KEYDOWN and e.key == K_ESCAPE:
                 pygame.display.quit()
                 pygame.quit()
                 exit()
+            if e.type == KEYDOWN and e.key == K_SPACE:
+                constants.current_level = constants.current_level + 1
+                whiteblocks.empty()
+                finishblocks.empty()
+                spikes.empty()
+                players.empty()
+                LevelLoader.gen_level_group(constants.current_level)
+
 
     def clear(self, screen):
         screen.fill(BLACK)
