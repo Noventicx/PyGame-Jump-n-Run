@@ -8,6 +8,8 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((255, 0, 255))
         self.rect = self.surf.get_rect()
         self.speed = 1
+        self.start_x = 100 * x
+        self.start_y = 100 * y
         self.rect.x = 100 * x
         self.rect.y = 100 * y
         self.gravity = -1

@@ -1,9 +1,10 @@
 import pygame.draw
 from pygame import KEYDOWN, K_SPACE, K_RETURN, K_UP, K_DOWN, KEYUP, K_ESCAPE
+from ranger.config.commands import chain
 
 import constants
 from collision import check_collision
-from entities.spritegroups import players, whiteblocks, finishblocks, spikes
+from entities.spritegroups import players, whiteblocks, finishblocks, spikes, checkpoints
 from levelloader import LevelLoader
 from constants import (
     SCREEN_WIDTH,
@@ -154,10 +155,12 @@ class GameState(State):
             screen.blit(finishblock.surf, finishblock.rect)
         for whiteblock in whiteblocks:
             screen.blit(whiteblock.surf, whiteblock.rect)
-        for player in players:
-            screen.blit(player.surf, player.rect)
         for spike in spikes:
             screen.blit(spike.surf, spike.rect)
+        for checkpoint in checkpoints:
+            screen.blit(checkpoint.surf, checkpoint.rect)
+        for player in players:
+            screen.blit(player.surf, player.rect)
 
     def events(self, events):
         players.update(events)
@@ -173,8 +176,8 @@ class GameState(State):
                 finishblocks.empty()
                 spikes.empty()
                 players.empty()
+                checkpoints.empty()
                 LevelLoader.gen_level_group(constants.current_level)
-
 
     def clear(self, screen):
         screen.fill(BLACK)

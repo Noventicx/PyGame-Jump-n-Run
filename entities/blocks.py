@@ -1,6 +1,6 @@
 import pygame
 
-from constants import WHITE, GREEN, RED
+from constants import WHITE, GREEN, RED, BLUE
 
 
 class WhiteBlock(pygame.sprite.Sprite):
@@ -53,6 +53,17 @@ class SmallSpikeTop(pygame.sprite.Sprite):
         super(SmallSpikeTop, self).__init__()
         self.surf = pygame.Surface((100, 25))
         self.surf.fill(RED)
+        self.rect = self.surf.get_rect()
+        self.rect.x = x * 100
+        self.rect.y = y * 100
+
+
+class Checkpoint(pygame.sprite.Sprite):
+
+    def __init__(self, x, y):
+        super(Checkpoint, self).__init__()
+        self.surf = pygame.Surface((100, 100))
+        self.surf.fill(BLUE)
         self.rect = self.surf.get_rect()
         self.rect.x = x * 100
         self.rect.y = y * 100

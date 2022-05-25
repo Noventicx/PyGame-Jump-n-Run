@@ -3,8 +3,8 @@ import os.path
 import pygame
 
 from entities.player import Player
-from entities.spritegroups import whiteblocks, players, finishblocks, spikes
-from entities.blocks import WhiteBlock, FinishBlock, Spike, SmallSpikeBottom, SmallSpikeTop
+from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints
+from entities.blocks import WhiteBlock, FinishBlock, Spike, SmallSpikeBottom, SmallSpikeTop, Checkpoint
 
 
 class LevelLoader:
@@ -43,6 +43,9 @@ class LevelLoader:
             if i == "ö":
                 spike = SmallSpikeTop(x, y)
                 spikes.add(spike)
+            if i == "c":
+                checkpoint = Checkpoint(x, y)
+                checkpoints.add(checkpoint)
             if i == "p":
                 player = Player(x, y)
                 players.add(player)
