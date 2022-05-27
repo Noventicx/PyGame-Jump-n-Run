@@ -1,6 +1,7 @@
 import pygame.sprite
 
 whiteblocks = pygame.sprite.Group()
+movingwhiteblocks = pygame.sprite.Group()
 finishblocks =  pygame.sprite.Group()
 players = pygame.sprite.Group()
 spikes = pygame.sprite.Group()

@@ -4,8 +4,9 @@ import pygame
 
 from entities.enemies import MovingEnemy
 from entities.player import Player
-from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies
-from entities.blocks import WhiteBlock, FinishBlock, Spike, SmallSpikeBottom, SmallSpikeTop, Checkpoint
+from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks
+from entities.blocks import WhiteBlock, FinishBlock, Spike, SmallSpikeBottom, SmallSpikeTop, Checkpoint, \
+    MovingWhiteBlock
 
 
 class LevelLoader:
@@ -32,6 +33,9 @@ class LevelLoader:
             if i == "1":
                 whiteblock = WhiteBlock(x, y)
                 whiteblocks.add(whiteblock)
+            if i == "m":
+                movingblock = MovingWhiteBlock(x, y)
+                movingwhiteblocks.add(movingblock)
             if i == "f":
                 finishblock = FinishBlock(x, y)
                 finishblocks.add(finishblock)
