@@ -1,5 +1,6 @@
 import pygame.draw
 
+
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):

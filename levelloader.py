@@ -2,8 +2,9 @@ import os.path
 
 import pygame
 
+from entities.enemies import MovingEnemy
 from entities.player import Player
-from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints
+from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies
 from entities.blocks import WhiteBlock, FinishBlock, Spike, SmallSpikeBottom, SmallSpikeTop, Checkpoint
 
 
@@ -46,8 +47,11 @@ class LevelLoader:
             if i == "c":
                 checkpoint = Checkpoint(x, y)
                 checkpoints.add(checkpoint)
+            if i == "e":
+                enemy = MovingEnemy(x, y + 0.75)
+                enemies.add(enemy)
             if i == "p":
-                player = Player(x, y)
+                player = Player(x, y + 0.75)
                 players.add(player)
             if i == "y":
                 y = y + 1

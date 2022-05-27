@@ -4,7 +4,7 @@ from ranger.config.commands import chain
 
 import constants
 from collision import check_collision
-from entities.spritegroups import players, whiteblocks, finishblocks, spikes, checkpoints
+from entities.spritegroups import players, whiteblocks, finishblocks, spikes, checkpoints, enemies
 from levelloader import LevelLoader
 from constants import (
     SCREEN_WIDTH,
@@ -159,10 +159,13 @@ class GameState(State):
             screen.blit(spike.surf, spike.rect)
         for checkpoint in checkpoints:
             screen.blit(checkpoint.surf, checkpoint.rect)
+        for enemy in enemies:
+            screen.blit(enemy.surf, enemy.rect)
         for player in players:
             screen.blit(player.surf, player.rect)
 
     def events(self, events):
+        enemies.update()
         players.update(events)
         check_collision()
         for e in events:
@@ -176,6 +179,7 @@ class GameState(State):
                 finishblocks.empty()
                 spikes.empty()
                 players.empty()
+                enemies.empty()
                 checkpoints.empty()
                 LevelLoader.gen_level_group(constants.current_level)
 
