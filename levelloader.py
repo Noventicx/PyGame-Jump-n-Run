@@ -15,7 +15,7 @@ class LevelLoader:
     def get_level_info(level):
         file = "levels/level" + str(level) + ".txt"
         if os.path.isfile("levels/level" + str(level) + ".txt"):
-            o = open(file, 'r')
+            o = open(file, 'r', encoding='utf-8')
             data = o.read()
             o.close()
         else:

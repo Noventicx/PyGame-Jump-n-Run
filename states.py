@@ -1,6 +1,5 @@
 import pygame.draw
 from pygame import KEYDOWN, K_SPACE, K_RETURN, K_UP, K_DOWN, KEYUP, K_ESCAPE
-from ranger.config.commands import chain
 
 import constants
 from collision import check_collision
