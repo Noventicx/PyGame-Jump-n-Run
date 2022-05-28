@@ -1,7 +1,8 @@
 import pygame
 
 import constants
-from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks
+from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks, \
+    coins
 from levelloader import LevelLoader
 
 
@@ -62,6 +63,7 @@ def check_collision():
                 movingwhiteblocks.empty()
                 finishblocks.empty()
                 spikes.empty()
+                coins.empty()
                 players.empty()
                 enemies.empty()
                 checkpoints.empty()
@@ -71,8 +73,7 @@ def check_collision():
             collision = pygame.Rect.colliderect(player.rect, spike.rect)
             if collision:
                 print("spike")
-                player.rect.x = player.start_x
-                player.rect.y = player.start_y
+                player.kill()
 
         for enemy in enemies:
             collision = pygame.Rect.colliderect(player.rect, enemy.rect)
@@ -82,8 +83,7 @@ def check_collision():
                     enemies.remove(enemy)
                 else:
                     print("killed by enemy")
-                    player.rect.x = player.start_x
-                    player.rect.y = player.start_y
+                    player.kill()
 
         for checkpoint in checkpoints:
             collision = pygame.Rect.colliderect(player.rect, checkpoint.rect)
@@ -91,6 +91,13 @@ def check_collision():
                 print("checkpoint")
                 player.start_x = checkpoint.rect.x
                 player.start_y = checkpoint.rect.y
+
+        for coin in coins:
+            collision = pygame.Rect.colliderect(player.rect, coin.rect)
+            if collision:
+                print("coin")
+                constants.current_coins = constants.current_coins + 1
+                coins.remove(coin)
 
     for enemy in enemies:
         for whiteblock in whiteblocks:

@@ -4,13 +4,16 @@ from ranger.config.commands import chain
 
 import constants
 from collision import check_collision
-from entities.spritegroups import players, whiteblocks, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks
+from entities.spritegroups import players, whiteblocks, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks, \
+    coins
 from levelloader import LevelLoader
 from constants import (
     SCREEN_WIDTH,
+    SCREEN_HEIGHT,
     BLACK,
     WHITE,
-    GREEN
+    GREEN,
+    YELLOW
 )
 
 
@@ -159,12 +162,20 @@ class GameState(State):
             screen.blit(movingwhiteblock.surf, movingwhiteblock.rect)
         for spike in spikes:
             screen.blit(spike.surf, spike.rect)
+        for coin in coins:
+            screen.blit(coin.surf, coin.rect)
         for checkpoint in checkpoints:
             screen.blit(checkpoint.surf, checkpoint.rect)
         for enemy in enemies:
             screen.blit(enemy.surf, enemy.rect)
         for player in players:
             screen.blit(player.surf, player.rect)
+        text = font.render("Coins: " + str(constants.current_coins), False, YELLOW)
+        text_rect = title.get_rect(center=(75, 10))
+        screen.blit(text, text_rect)
+        text2 = font.render("Tode: " + str(constants.current_deaths), False, YELLOW)
+        text2_rect = title.get_rect(center=(75, 30))
+        screen.blit(text2, text2_rect)
 
     def events(self, events):
         enemies.update()
@@ -182,6 +193,7 @@ class GameState(State):
                 movingwhiteblocks.empty()
                 finishblocks.empty()
                 spikes.empty()
+                coins.empty()
                 players.empty()
                 enemies.empty()
                 checkpoints.empty()

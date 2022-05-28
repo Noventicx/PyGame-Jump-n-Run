@@ -1,5 +1,7 @@
 import pygame.draw
 
+import constants
+
 
 class Player(pygame.sprite.Sprite):
 
@@ -27,6 +29,11 @@ class Player(pygame.sprite.Sprite):
         if key[pygame.K_UP]:
             if self.onground is True:
                 print("jump")
-                #TODO nochmal neue Idee ausarbeiten ist eigentlich kein Sprung
+                # TODO nochmal neue Idee ausarbeiten ist eigentlich kein Sprung
                 self.onground = False
                 self.rect.y = self.rect.y - self.jump
+
+    def kill(self):
+        self.rect.x = self.start_x
+        self.rect.y = self.start_y
+        constants.current_deaths = constants.current_deaths + 1

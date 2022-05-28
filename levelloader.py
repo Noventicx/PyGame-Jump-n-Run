@@ -4,9 +4,10 @@ import pygame
 
 from entities.enemies import MovingEnemy
 from entities.player import Player
-from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks
+from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks, \
+    coins
 from entities.blocks import WhiteBlock, FinishBlock, Spike, SmallSpikeBottom, SmallSpikeTop, Checkpoint, \
-    MovingWhiteBlock
+    MovingWhiteBlock, Coin
 
 
 class LevelLoader:
@@ -51,6 +52,9 @@ class LevelLoader:
             if i == "c":
                 checkpoint = Checkpoint(x, y)
                 checkpoints.add(checkpoint)
+            if i == "€":
+                coin = Coin(x + 0.45, y + 0.75)
+                coins.add(coin)
             if i == "e":
                 enemy = MovingEnemy(x, y + 0.75)
                 enemies.add(enemy)

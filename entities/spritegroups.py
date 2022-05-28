@@ -8,3 +8,5 @@ spikes = pygame.sprite.Group()
 checkpoints = pygame.sprite.Group()
 
 enemies = pygame.sprite.Group()
+
+coins = pygame.sprite.Group()
