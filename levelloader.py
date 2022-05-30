@@ -2,6 +2,8 @@ import os.path
 
 import pygame
 
+import constants
+import sqlite
 from entities.enemies import MovingEnemy
 from entities.player import Player
 from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks, \
@@ -19,6 +21,7 @@ class LevelLoader:
             data = o.read()
             o.close()
         else:
+            sqlite.insert_coins()
             print("You completed all levels")
             pygame.display.quit()
             pygame.quit()
