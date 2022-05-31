@@ -16,7 +16,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = 100 * x
         self.rect.y = 100 * y
         self.gravity = -1
-        self.jump = 130
+        self.jump_height = 130
+        self.is_jumping = False
         self.onground = True
 
     def update(self, events):
@@ -31,9 +32,23 @@ class Player(pygame.sprite.Sprite):
                 print("jump")
                 # TODO nochmal neue Idee ausarbeiten ist eigentlich kein Sprung
                 self.onground = False
-                self.rect.y = self.rect.y - self.jump
+                #self.rect.y = self.rect.y - self.jump_height
+                #Idee für neu Implementation siehe jump()
+                self.jump()
+        if self.is_jumping is True:
+            self.gravity = 5
+            self.jump_height = self.jump_height - 5
+        if self.jump_height <= 0:
+            self.is_jumping = False
+            self.jump_height = 130
+            self.gravity = -1
+
+    def jump(self):
+        self.is_jumping = True
 
     def kill(self):
         self.rect.x = self.start_x
         self.rect.y = self.start_y
         constants.current_deaths = constants.current_deaths + 1
+
+

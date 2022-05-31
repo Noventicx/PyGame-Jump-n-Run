@@ -9,3 +9,4 @@ YELLOW = (255, 255, 0)
 current_level = 1
 current_coins = 0
 current_deaths = 0
+end_state = False

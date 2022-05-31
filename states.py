@@ -2,6 +2,7 @@ import pygame.draw
 from pygame import KEYDOWN, K_SPACE, K_RETURN, K_UP, K_DOWN, KEYUP, K_ESCAPE
 
 import constants
+import sqlite
 from collision import check_collision
 from entities.spritegroups import players, whiteblocks, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks, \
     coins
@@ -200,3 +201,39 @@ class GameState(State):
 
     def clear(self, screen):
         screen.fill(BLACK)
+
+
+class EndState(State):
+
+    def init(self):
+        super(EndState, self).init()
+
+    def draw(self, screen):
+        self.clear(screen)
+        font = pygame.font.SysFont(None, 32)
+        title = font.render("Game Over", False, WHITE)
+        title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
+        screen.blit(title, title_rect)
+
+        coin_text = font.render("Dein Score " + str(constants.current_coins * 100 - constants.current_deaths * 10), False, WHITE)
+        coin_text_rect = title.get_rect(center=(SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2))
+        screen.blit(coin_text, coin_text_rect)
+
+        coin_most_text = font.render("Highscores", False, WHITE)
+        coin_most_text_rect = title.get_rect(center=(SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2 + 20))
+        screen.blit(coin_most_text, coin_most_text_rect)
+
+        sqlite.get_scores(font, screen)
+
+
+    def events(self, events):
+        for e in events:
+            if e.type == KEYDOWN and e.key == K_SPACE:
+                constants.end_state = False
+                constants.current_level = 1
+                constants.current_coins = 0
+                constants.current_deaths = 0
+                self.manager.go_to(MenuState())
+
+    def clear(self, screen):
+        screen.fill(constants.BLACK)

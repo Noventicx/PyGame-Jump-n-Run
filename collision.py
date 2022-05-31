@@ -28,6 +28,8 @@ def check_collision():
                     print("top")
                     player.rect.top = whiteblock.rect.bottom
                     player.onground = False
+                    if player.is_jumping is True:
+                        player.jump_height = 0
 
         for movingwhiteblock in movingwhiteblocks:
             collision = pygame.Rect.colliderect(player.rect, movingwhiteblock.rect)
