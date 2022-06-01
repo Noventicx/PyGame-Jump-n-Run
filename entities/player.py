@@ -7,8 +7,9 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super(Player, self).__init__()
-        self.surf = pygame.Surface((25, 25))
-        self.surf.fill((255, 0, 255))
+        #self.surf = pygame.Surface((25, 25))
+        #self.surf.fill((255, 0, 255))
+        self.surf = pygame.image.load("entities/Sprite1.png")
         self.rect = self.surf.get_rect()
         self.speed = 1
         self.start_x = 100 * x
@@ -24,11 +25,14 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = self.rect.y - self.gravity
         key = pygame.key.get_pressed()
         if key[pygame.K_LEFT]:
+            self.surf = pygame.image.load("entities/Sprite2.png")
             self.rect.x = self.rect.x - self.speed
         if key[pygame.K_RIGHT]:
+            self.surf = pygame.image.load("entities/Sprite3.png")
             self.rect.x = self.rect.x + self.speed
         if key[pygame.K_UP]:
             if self.onground is True:
+                self.surf = pygame.image.load("entities/Sprite4.png")
                 print("jump")
                 # TODO nochmal neue Idee ausarbeiten ist eigentlich kein Sprung
                 self.onground = False
