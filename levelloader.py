@@ -1,6 +1,7 @@
 import os.path
 
 import pygame
+from pygame import mixer
 
 import constants
 import sqlite
@@ -24,6 +25,7 @@ class LevelLoader:
         else:
             sqlite.insert_score()
             print("You completed all levels")
+            mixer.music.stop()
             constants.end_state = True
             return None
 

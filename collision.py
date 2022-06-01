@@ -99,6 +99,7 @@ def check_collision():
             if collision:
                 print("coin")
                 constants.current_coins = constants.current_coins + 1
+
                 coins.remove(coin)
 
     for enemy in enemies:
