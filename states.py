@@ -1,5 +1,5 @@
 import pygame.draw
-from pygame import KEYDOWN, K_SPACE, K_RETURN, K_UP, K_DOWN, KEYUP, K_ESCAPE
+from pygame import KEYDOWN, K_SPACE, K_RETURN, K_UP, K_DOWN, KEYUP, K_ESCAPE, mixer
 
 import constants
 import sqlite
@@ -101,6 +101,7 @@ class MenuState(State):
                 self.manager.go_to(GameState())
             if selected == 0 and e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(GameState())
+                mixer.music.play(-1)
             if selected == 1 and e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(InfoState())
             if selected == 2 and e.type == KEYDOWN and e.key == K_RETURN:

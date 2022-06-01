@@ -1,5 +1,5 @@
 import pygame
-from pygame import QUIT
+from pygame import QUIT, mixer
 
 import constants
 from statemanager import StateMananger
@@ -8,6 +8,12 @@ from constants import (
     SCREEN_HEIGHT
 )
 from states import EndState
+
+mixer.init()
+music = mixer.music.load("background.mp3")
+mixer.music.set_volume(0.05)
+#mixer.music.play(-1)
+
 
 pygame.init()
 clock = pygame.time.Clock()
