@@ -75,8 +75,11 @@ class MenuState(State):
         info_text = font.render("Info", False, WHITE)
         info_rect = info_text.get_rect(center=(SCREEN_WIDTH / 2, 70))
         screen.blit(info_text, info_rect)
+        score_text = font.render("Score", False, WHITE)
+        score_rect = score_text.get_rect(center=(SCREEN_WIDTH / 2, 90))
+        screen.blit(score_text, score_rect)
         exit_text = font.render("Exit", False, WHITE)
-        exit_rect = exit_text.get_rect(center=(SCREEN_WIDTH / 2, 90))
+        exit_rect = exit_text.get_rect(center=(SCREEN_WIDTH / 2, 110))
         screen.blit(exit_text, exit_rect)
         if selected == 0:
             play_text = font.render("Play", False, GREEN)
@@ -85,6 +88,9 @@ class MenuState(State):
             info_text = font.render("Info", False, GREEN)
             screen.blit(info_text, info_rect)
         if selected == 2:
+            score_text = font.render("Score", False, GREEN)
+            screen.blit(score_text, score_rect)
+        if selected == 3:
             exit_text = font.render("Exit", False, GREEN)
             screen.blit(exit_text, exit_rect)
 
@@ -98,6 +104,8 @@ class MenuState(State):
             if selected == 1 and e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(InfoState())
             if selected == 2 and e.type == KEYDOWN and e.key == K_RETURN:
+                self.manager.go_to(ScoreState())
+            if selected == 3 and e.type == KEYDOWN and e.key == K_RETURN:
                 pygame.display.quit()
                 pygame.quit()
                 exit()
@@ -106,13 +114,17 @@ class MenuState(State):
             elif selected == 1 and e.type == KEYUP and e.key == K_DOWN:
                 selected = 2
             elif selected == 2 and e.type == KEYUP and e.key == K_DOWN:
+                selected = 3
+            elif selected == 3 and e.type == KEYUP and e.key == K_DOWN:
                 selected = 0
             elif selected == 0 and e.type == KEYUP and e.key == K_UP:
-                selected = 2
+                selected = 3
             elif selected == 1 and e.type == KEYUP and e.key == K_UP:
                 selected = 0
             elif selected == 2 and e.type == KEYUP and e.key == K_UP:
                 selected = 1
+            elif selected == 3 and e.type == KEYUP and e.key == K_UP:
+                selected = 2
 
     def clear(self, screen):
         screen.fill(BLACK)
@@ -132,6 +144,28 @@ class InfoState(State):
         text = font.render("Info für die Steuerung hier vlt anzeigen", False, WHITE)
         text_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 50))
         screen.blit(text, text_rect)
+
+    def events(self, events):
+        for e in events:
+            if e.type == KEYDOWN and e.key == K_SPACE:
+                self.manager.go_to(MenuState())
+
+    def clear(self, screen):
+        screen.fill(BLACK)
+
+
+class ScoreState(State):
+
+    def __init__(self):
+        super(ScoreState, self).__init__()
+
+    def draw(self, screen):
+        self.clear(screen)
+        font = pygame.font.SysFont(None, 32)
+        title = font.render("Highscores", False, WHITE)
+        title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
+        screen.blit(title, title_rect)
+        sqlite.get_scores(font, screen)
 
     def events(self, events):
         for e in events:
@@ -215,7 +249,8 @@ class EndState(State):
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
         screen.blit(title, title_rect)
 
-        coin_text = font.render("Dein Score " + str(constants.current_coins * 100 - constants.current_deaths * 10), False, WHITE)
+        coin_text = font.render("Dein Score " + str(constants.current_coins * 100 - constants.current_deaths * 10),
+                                False, WHITE)
         coin_text_rect = title.get_rect(center=(SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2))
         screen.blit(coin_text, coin_text_rect)
 
@@ -224,7 +259,6 @@ class EndState(State):
         screen.blit(coin_most_text, coin_most_text_rect)
 
         sqlite.get_scores(font, screen)
-
 
     def events(self, events):
         for e in events:
