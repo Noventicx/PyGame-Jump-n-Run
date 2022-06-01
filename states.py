@@ -101,6 +101,9 @@ class MenuState(State):
                 self.manager.go_to(GameState())
             if selected == 0 and e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(GameState())
+                mixer.init()
+                mixer.music.load("music/background.mp3")
+                mixer.music.set_volume(0.02)
                 mixer.music.play(-1)
             if selected == 1 and e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(InfoState())

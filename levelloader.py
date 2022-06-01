@@ -26,6 +26,9 @@ class LevelLoader:
             sqlite.insert_score()
             print("You completed all levels")
             mixer.music.stop()
+            effect = pygame.mixer.Sound('music/end.mp3')
+            effect.set_volume(0.05)
+            effect.play()
             constants.end_state = True
             return None
 

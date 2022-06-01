@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 
 import constants
 from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks, \
@@ -82,6 +83,9 @@ def check_collision():
             if collision:
                 if player.rect.centery < enemy.rect.centery:
                     print("enemy killed")
+                    effect = pygame.mixer.Sound('music/kill.mp3')
+                    effect.set_volume(0.06)
+                    effect.play()
                     enemies.remove(enemy)
                 else:
                     print("killed by enemy")
@@ -99,7 +103,9 @@ def check_collision():
             if collision:
                 print("coin")
                 constants.current_coins = constants.current_coins + 1
-
+                effect = pygame.mixer.Sound('music/coin.mp3')
+                effect.set_volume(0.05)
+                effect.play()
                 coins.remove(coin)
 
     for enemy in enemies:

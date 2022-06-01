@@ -34,6 +34,9 @@ class Player(pygame.sprite.Sprite):
             if self.onground is True:
                 self.surf = pygame.image.load("entities/Sprite4.png")
                 print("jump")
+                effect = pygame.mixer.Sound('music/jump.mp3')
+                effect.set_volume(0.05)
+                effect.play()
                 # TODO nochmal neue Idee ausarbeiten ist eigentlich kein Sprung
                 self.onground = False
                 #self.rect.y = self.rect.y - self.jump_height

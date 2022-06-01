@@ -9,12 +9,6 @@ from constants import (
 )
 from states import EndState
 
-mixer.init()
-music = mixer.music.load("background.mp3")
-mixer.music.set_volume(0.05)
-#mixer.music.play(-1)
-
-
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -25,7 +19,7 @@ manager = StateMananger()
 while running:
 
     # limit fps to 60
-    # clock.tick(60)
+    #clock.tick()
     #print(clock.get_fps())
 
     if pygame.event.get(QUIT):
