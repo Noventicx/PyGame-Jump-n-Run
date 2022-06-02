@@ -51,7 +51,7 @@ class LevelLoader:
                     spike = Spike(x, y)
                     spikes.add(spike)
                 if i == "k":
-                    spike = SmallSpikeBottom(x, y + 0.75)
+                    spike = SmallSpikeBottom(x, y)
                     spikes.add(spike)
                 if i == "ö":
                     spike = SmallSpikeTop(x, y)
@@ -60,13 +60,13 @@ class LevelLoader:
                     checkpoint = Checkpoint(x, y)
                     checkpoints.add(checkpoint)
                 if i == "€":
-                    coin = Coin(x + 0.45, y + 0.75)
+                    coin = Coin(x, y)
                     coins.add(coin)
                 if i == "e":
-                    enemy = MovingEnemy(x, y + 0.75)
+                    enemy = MovingEnemy(x, y)
                     enemies.add(enemy)
                 if i == "p":
-                    player = Player(x, y + 0.75)
+                    player = Player(x, y)
                     players.add(player)
                 if i == "y":
                     y = y + 1

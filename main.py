@@ -31,4 +31,5 @@ while running:
 
     manager.state.draw(screen)
     manager.state.events(pygame.event.get())
+    manager.state.update()
     pygame.display.flip()

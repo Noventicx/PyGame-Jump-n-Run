@@ -216,10 +216,6 @@ class GameState(State):
         screen.blit(text2, text2_rect)
 
     def events(self, events):
-        enemies.update()
-        movingwhiteblocks.update()
-        players.update(events)
-        check_collision()
         for e in events:
             if e.type == KEYDOWN and e.key == K_ESCAPE:
                 pygame.display.quit()
@@ -236,6 +232,13 @@ class GameState(State):
                 enemies.empty()
                 checkpoints.empty()
                 LevelLoader.gen_level_group(constants.current_level)
+
+    def update(self):
+        players.update()
+        check_collision()
+        enemies.update()
+        movingwhiteblocks.update()
+        coins.update()
 
     def clear(self, screen):
         screen.fill(BLACK)

@@ -95,8 +95,9 @@ def check_collision():
             collision = pygame.Rect.colliderect(player.rect, checkpoint.rect)
             if collision:
                 print("checkpoint")
-                player.start_x = checkpoint.rect.x
-                player.start_y = checkpoint.rect.y
+                checkpoint.surf = pygame.transform.scale(pygame.image.load("sprites/blocks/checkpoint_check.png"), (50, 50))
+                player.start_x = checkpoint.rect.x + 12.5
+                player.start_y = checkpoint.rect.y + 25
 
         for coin in coins:
             collision = pygame.Rect.colliderect(player.rect, coin.rect)
