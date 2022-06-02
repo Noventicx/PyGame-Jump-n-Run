@@ -8,3 +8,5 @@ class StateMananger(object):
     def go_to(self, state):
         self.state = state
         self.state.manager = self
+
+#Quelle für den StateManager https://stackoverflow.com/a/14727074
