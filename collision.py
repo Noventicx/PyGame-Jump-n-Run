@@ -93,7 +93,11 @@ def check_collision():
 
         for checkpoint in checkpoints:
             collision = pygame.Rect.colliderect(player.rect, checkpoint.rect)
-            if collision:
+            if collision and checkpoint.checked is False:
+                checkpoint.checked = True
+                effect = pygame.mixer.Sound('music/checkpoint.mp3')
+                effect.set_volume(0.06)
+                effect.play()
                 print("checkpoint")
                 checkpoint.surf = pygame.transform.scale(pygame.image.load("sprites/blocks/checkpoint_check.png"), (50, 50))
                 player.start_x = checkpoint.rect.x + 12.5

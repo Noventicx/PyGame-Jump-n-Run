@@ -105,6 +105,7 @@ class Checkpoint(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect()
         self.rect.x = x * 100 + 25
         self.rect.y = y * 100 + 50
+        self.checked = False
 
 
 class Coin(pygame.sprite.Sprite):
