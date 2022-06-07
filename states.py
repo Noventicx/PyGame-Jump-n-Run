@@ -17,20 +17,25 @@ from constants import (
 )
 
 
+# Grundklasse für die States, auf dieser bauen alle States auf
 class State(object):
 
     def __init__(self):
         pass
 
+    # ist für das Zeichnen von z.B Spielern, Blocken und Enemies
     def draw(self, screen):
         pass
 
+    # updaten der Position von Spielern und Enemies
     def update(self):
         pass
 
-    def events(self, events, screen):
+    # verarbeitet alle Tasteneingaben
+    def events(self, events):
         pass
 
+    # wenn die Szene gewchselt werden soll wird diese Funktion aufgeurfen
     def clear(self, screen):
         pass
 
@@ -58,11 +63,13 @@ class SplashState(State):
 
 class MenuState(State):
     global selected
+    # der aktuell ausgewählte Text
     selected = 0
 
     def __init__(self):
         super(MenuState, self).__init__()
 
+    # Zeichnen des Menüs
     def draw(self, screen):
         self.clear(screen)
         font = pygame.font.SysFont(None, 32)
@@ -81,6 +88,7 @@ class MenuState(State):
         exit_text = font.render("Exit", False, WHITE)
         exit_rect = exit_text.get_rect(center=(SCREEN_WIDTH / 2, 110))
         screen.blit(exit_text, exit_rect)
+        # der ausgewählte Text wird grün überzeichnet
         if selected == 0:
             play_text = font.render("Play", False, GREEN)
             screen.blit(play_text, play_rect)
@@ -105,6 +113,7 @@ class MenuState(State):
                 mixer.music.load("music/background.mp3")
                 mixer.music.set_volume(0.02)
                 mixer.music.play(-1)
+            # wechseln der State über das aktuell ausgewählte Element
             if selected == 1 and e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(InfoState())
             if selected == 2 and e.type == KEYDOWN and e.key == K_RETURN:
@@ -113,6 +122,7 @@ class MenuState(State):
                 pygame.display.quit()
                 pygame.quit()
                 exit()
+            # logik für das Wechseln der Textelemente mit Hilfe der Pfeiltasten
             if selected == 0 and e.type == KEYUP and e.key == K_DOWN:
                 selected = 1
             elif selected == 1 and e.type == KEYUP and e.key == K_DOWN:
@@ -163,6 +173,7 @@ class ScoreState(State):
     def __init__(self):
         super(ScoreState, self).__init__()
 
+    # zeichnen der besten 3 Scores
     def draw(self, screen):
         self.clear(screen)
         font = pygame.font.SysFont(None, 32)
@@ -181,7 +192,7 @@ class ScoreState(State):
 
 
 class GameState(State):
-
+    # in dieser State läuft das eigentliche Spiel ab
     def __init__(self):
         super(GameState, self).__init__()
         LevelLoader.gen_level_group(constants.current_level)
@@ -192,6 +203,7 @@ class GameState(State):
         title = font.render("Game Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
         screen.blit(title, title_rect)
+        # iterieren durch die Spritegroups und zeichnen der Blöcke, der Enemies und des Spielers
         for finishblock in finishblocks:
             screen.blit(finishblock.surf, finishblock.rect)
         for whiteblock in whiteblocks:
@@ -208,9 +220,11 @@ class GameState(State):
             screen.blit(enemy.surf, enemy.rect)
         for player in players:
             screen.blit(player.surf, player.rect)
+        # Zeichnen des Coins-Counters
         text = font.render("Coins: " + str(constants.current_coins), False, YELLOW)
         text_rect = title.get_rect(center=(75, 10))
         screen.blit(text, text_rect)
+        # Zeichnen des Tode-Counters
         text2 = font.render("Tode: " + str(constants.current_deaths), False, YELLOW)
         text2_rect = title.get_rect(center=(75, 30))
         screen.blit(text2, text2_rect)
@@ -255,12 +269,12 @@ class EndState(State):
         title = font.render("Game Over", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
         screen.blit(title, title_rect)
-
+        # der Score der aktuellen Runde wird gezeichnet
         coin_text = font.render("Dein Score " + str(constants.current_coins * 100 - constants.current_deaths * 10),
                                 False, WHITE)
         coin_text_rect = title.get_rect(center=(SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2))
         screen.blit(coin_text, coin_text_rect)
-
+        # die Highscores werden gezeichnet
         coin_most_text = font.render("Highscores", False, WHITE)
         coin_most_text_rect = title.get_rect(center=(SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2 + 20))
         screen.blit(coin_most_text, coin_most_text_rect)

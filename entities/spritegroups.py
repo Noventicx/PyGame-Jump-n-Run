@@ -1,5 +1,6 @@
 import pygame.sprite
 
+# erstellen der Spritegroups
 whiteblocks = pygame.sprite.Group()
 movingwhiteblocks = pygame.sprite.Group()
 finishblocks =  pygame.sprite.Group()

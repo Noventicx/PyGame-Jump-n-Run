@@ -1,7 +1,7 @@
 import sqlite3
 import constants
 
-
+# der Score wird in die Datenbank geschrieben, falls die DB noch nicht vorhanden ist, wird diese erstellt
 def insert_score():
     sqliteCon = sqlite3.connect('Highscore.db')
     cursor = sqliteCon.cursor()
@@ -15,6 +15,7 @@ def insert_score():
     cursor.close()
 
 
+# dies Highscores werden ausgelesen
 def get_scores(font, screen):
     sqliteCon = sqlite3.connect('Highscore.db')
     cursor = sqliteCon.cursor()

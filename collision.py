@@ -6,7 +6,7 @@ from entities.spritegroups import whiteblocks, players, finishblocks, spikes, ch
     coins
 from levelloader import LevelLoader
 
-
+# mit dieser Funktion wird die Kolision zwischen allen möglichen Sprites und Spritesgroups getestet
 def check_collision():
     for player in players:
         for whiteblock in whiteblocks:

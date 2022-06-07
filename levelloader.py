@@ -13,16 +13,20 @@ from entities.blocks import WhiteBlock, FinishBlock, Spike, SmallSpikeBottom, Sm
     MovingWhiteBlock, Coin
 
 
+# diese Klasse ist für das Laden eines Levels zuständig
 class LevelLoader:
 
+    # einlesen des Levels
     def get_level_info(level):
         file = "levels/level" + str(level) + ".txt"
         if os.path.isfile("levels/level" + str(level) + ".txt"):
+            # wenn die Leveldatei existiert wird diese zurückgegeben
             o = open(file, 'r', encoding='utf-8')
             data = o.read()
             o.close()
             return data
         else:
+            # wenn die Leveldatei nicht vorhanden ist wird der end-Screen gezeigt
             sqlite.insert_score()
             print("You completed all levels")
             mixer.music.stop()
@@ -37,6 +41,8 @@ class LevelLoader:
         x = 0
         y = 0
         if level_data is not None:
+            # iterieren durch die Level-data
+            # je nach Symbol wird ein andere Block mit x und y Koodrinate erstellt
             for i in level_data:
                 if i == "1":
                     whiteblock = WhiteBlock(x, y)
@@ -69,6 +75,7 @@ class LevelLoader:
                     player = Player(x, y)
                     players.add(player)
                 if i == "y":
+                    # zeigt an das die Zeile zuende ist
                     y = y + 1
                     x = -1
                 if i != "y":

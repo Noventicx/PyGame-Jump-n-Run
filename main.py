@@ -9,17 +9,20 @@ from constants import (
 )
 from states import EndState
 
+# initialisieren von pygame
 pygame.init()
 clock = pygame.time.Clock()
+# setzen der Fenstergröße
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 running = True
 
 manager = StateMananger()
 
+# starten des Gameloops in diesem Loop läuft das ganze spiel
 while running:
 
-    # limit fps to 60
-    #clock.tick()
+    # limitieren auf 60 fps
+    clock.tick(60)
     #print(clock.get_fps())
 
     if pygame.event.get(QUIT):

@@ -7,8 +7,8 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super(Player, self).__init__()
-        #self.surf = pygame.Surface((25, 25))
-        #self.surf.fill((255, 0, 255))
+        # self.surf = pygame.Surface((25, 25))
+        # self.surf.fill((255, 0, 255))
         self.surf = pygame.transform.scale(pygame.image.load("sprites/player/idle1.png"), (25, 25))
         self.rect = self.surf.get_rect()
         self.speed = 1
@@ -25,13 +25,14 @@ class Player(pygame.sprite.Sprite):
         self.walking_right = True
         self.elapsed = pygame.time.get_ticks()
 
+    # logik für die Fortbewegung und Animationen
     def update(self):
         self.rect.y = self.rect.y - self.gravity
         key = pygame.key.get_pressed()
         image_sprite_walking = [pygame.transform.scale(pygame.image.load("sprites/player/walking1.png"), (25, 25)),
                                 pygame.transform.scale(pygame.image.load("sprites/player/walking2.png"), (25, 25))]
         image_sprite_idle = [pygame.transform.scale(pygame.image.load("sprites/player/idle1.png"), (25, 25)),
-                                pygame.transform.scale(pygame.image.load("sprites/player/idle2.png"), (25, 25))]
+                             pygame.transform.scale(pygame.image.load("sprites/player/idle2.png"), (25, 25))]
         if key[pygame.K_LEFT]:
             now = pygame.time.get_ticks()
             self.walking_right = False
@@ -41,7 +42,8 @@ class Player(pygame.sprite.Sprite):
                 if self.is_jumping is False:
                     self.surf = pygame.transform.flip(image_sprite_walking[self.walking_anim], True, False)
                 else:
-                    self.surf = pygame.transform.flip(pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25)), True, False)
+                    self.surf = pygame.transform.flip(
+                        pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25)), True, False)
                 self.walking_anim = self.walking_anim + 1
                 self.elapsed = now
             self.rect.x = self.rect.x - self.speed
@@ -63,19 +65,20 @@ class Player(pygame.sprite.Sprite):
                 if self.walking_right is True:
                     self.surf = pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25))
                 elif self.walking_right is False:
-                    self.surf = pygame.transform.flip(pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25)), True, False)
+                    self.surf = pygame.transform.flip(
+                        pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25)), True, False)
                 print("jump")
                 effect = pygame.mixer.Sound('music/jump.mp3')
                 effect.set_volume(0.05)
                 effect.play()
                 # TODO nochmal neue Idee ausarbeiten ist eigentlich kein Sprung
                 self.onground = False
-                #self.rect.y = self.rect.y - self.jump_height
-                #Idee für neu Implementation siehe jump()
+                # self.rect.y = self.rect.y - self.jump_height
+                # Idee für neu Implementation siehe jump()
                 self.jump()
         if self.onground is True and not key[pygame.K_UP] and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
             now = pygame.time.get_ticks()
-            #print(now - self.elapsed)
+            # print(now - self.elapsed)
             if self.idle_anim >= len(image_sprite_idle):
                 self.idle_anim = 0
             if now - self.elapsed > 250:
@@ -100,5 +103,3 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = self.start_x
         self.rect.y = self.start_y
         constants.current_deaths = constants.current_deaths + 1
-
-

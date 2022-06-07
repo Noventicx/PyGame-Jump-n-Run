@@ -1,6 +1,7 @@
 from states import SplashState
 
 
+# Der StateManager wird zum wechseln der States verwendet
 class StateMananger(object):
     def __init__(self):
         self.go_to(SplashState())
@@ -9,4 +10,4 @@ class StateMananger(object):
         self.state = state
         self.state.manager = self
 
-#Quelle für den StateManager https://stackoverflow.com/a/14727074
+# Quelle für den StateManager https://stackoverflow.com/a/14727074

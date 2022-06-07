@@ -3,10 +3,7 @@ import pygame
 from constants import WHITE, GREEN, RED, BLUE, YELLOW
 
 
-# Ideen für Blöcke:
-# bewegende Blöcke
-# Teleporter
-# Münzen
+# In dieser Datei werden alle Blöcke erstellt. Die Basis aller Block ist ein rect von width = height
 
 class WhiteBlock(pygame.sprite.Sprite):
 
