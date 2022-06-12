@@ -47,6 +47,7 @@ class SplashState(State):
 
     def draw(self, screen):
         self.clear(screen)
+        screen.blit(constants.background, (0, 0))
         font = pygame.font.SysFont(None, 32)
         title = font.render("Splash Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
@@ -72,6 +73,7 @@ class MenuState(State):
     # Zeichnen des Menüs
     def draw(self, screen):
         self.clear(screen)
+        screen.blit(constants.background, (0, 0))
         font = pygame.font.SysFont(None, 32)
         title = font.render("Menu Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
@@ -151,6 +153,7 @@ class InfoState(State):
 
     def draw(self, screen):
         self.clear(screen)
+        screen.blit(constants.background, (0, 0))
         font = pygame.font.SysFont(None, 32)
         title = font.render("Info Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
@@ -176,6 +179,7 @@ class ScoreState(State):
     # zeichnen der besten 3 Scores
     def draw(self, screen):
         self.clear(screen)
+        screen.blit(constants.background, (0, 0))
         font = pygame.font.SysFont(None, 32)
         title = font.render("Highscores", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
@@ -199,6 +203,7 @@ class GameState(State):
 
     def draw(self, screen):
         self.clear(screen)
+        screen.blit(constants.background, (0, 0))
         font = pygame.font.SysFont(None, 32)
         title = font.render("Game Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
@@ -264,7 +269,8 @@ class EndState(State):
         super(EndState, self).init()
 
     def draw(self, screen):
-        self.clear(screen)
+        self.clear(screen)h
+        screen.blit(constants.background, (0, 0))
         font = pygame.font.SysFont(None, 32)
         title = font.render("Game Over", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
