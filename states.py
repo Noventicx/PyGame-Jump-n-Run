@@ -269,7 +269,7 @@ class EndState(State):
         super(EndState, self).init()
 
     def draw(self, screen):
-        self.clear(screen)h
+        self.clear(screen)
         screen.blit(constants.background, (0, 0))
         font = pygame.font.SysFont(None, 32)
         title = font.render("Game Over", False, WHITE)
