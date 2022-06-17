@@ -31,9 +31,9 @@ class MovingWhiteBlock(pygame.sprite.Sprite):
         self.speed = 2
 
     def update(self):
-        if self.moves_right is True:
+        if self.moves_right:
             self.rect.x = self.rect.x + self.speed
-        elif self.moves_right is False:
+        elif not self.moves_right:
             self.rect.x = self.rect.x - self.speed
 
 

@@ -29,7 +29,7 @@ def check_collision():
                     print("top")
                     player.rect.top = whiteblock.rect.bottom
                     player.onground = False
-                    if player.is_jumping is True:
+                    if player.is_jumping:
                         player.jump_height = 0
         # hier wird überprüft ob der Spieler springt oder in eine Richtung läuft.
         for movingwhiteblock in movingwhiteblocks:
@@ -39,9 +39,9 @@ def check_collision():
                 if player.rect.centery < movingwhiteblock.rect.centery:
                     print("bottom")
                     player.rect.bottom = movingwhiteblock.rect.top
-                    if movingwhiteblock.moves_right is True:
+                    if movingwhiteblock.moves_right:
                         player.rect.x = player.rect.x + movingwhiteblock.speed
-                    elif movingwhiteblock.moves_right is False:
+                    elif not movingwhiteblock.moves_right:
                         player.rect.x = player.rect.x - movingwhiteblock.speed
                     player.onground = True
                 elif player.rect.centerx > movingwhiteblock.rect.centerx:
@@ -93,7 +93,7 @@ def check_collision():
         # Checkpoint wird erstellt und kann benutzt werden
         for checkpoint in checkpoints:
             collision = pygame.Rect.colliderect(player.rect, checkpoint.rect)
-            if collision and checkpoint.checked is False:
+            if collision and not checkpoint.checked:
                 checkpoint.checked = True
                 effect = pygame.mixer.Sound('music/checkpoint.mp3')
                 effect.set_volume(0.06)
@@ -118,16 +118,16 @@ def check_collision():
         for whiteblock in whiteblocks:
             collision = pygame.Rect.colliderect(enemy.rect, whiteblock.rect)
             if collision:
-                if enemy.moves_right is True:
+                if enemy.moves_right:
                     enemy.moves_right = False
-                elif enemy.moves_right is False:
+                elif not enemy.moves_right:
                     enemy.moves_right = True
 
     for movingwhiteblock in movingwhiteblocks:
         for whiteblock in whiteblocks:
             collision = pygame.Rect.colliderect(movingwhiteblock.rect, whiteblock.rect)
             if collision:
-                if movingwhiteblock.moves_right is True:
+                if movingwhiteblock.moves_right:
                     movingwhiteblock.moves_right = False
-                elif movingwhiteblock.moves_right is False:
+                elif not movingwhiteblock.moves_right:
                     movingwhiteblock.moves_right = True

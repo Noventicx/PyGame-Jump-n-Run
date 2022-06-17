@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
             if self.walking_anim >= len(image_sprite_walking):
                 self.walking_anim = 0
             if now - self.elapsed > 250:
-                if self.is_jumping is False:
+                if not self.is_jumping:
                     self.surf = pygame.transform.flip(image_sprite_walking[self.walking_anim], True, False)
                 else:
                     self.surf = pygame.transform.flip(
@@ -50,7 +50,7 @@ class Player(pygame.sprite.Sprite):
             if self.walking_anim >= len(image_sprite_walking):
                 self.walking_anim = 0
             if now - self.elapsed > 250:
-                if self.is_jumping is False:
+                if not self.is_jumping:
                     self.surf = image_sprite_walking[self.walking_anim]
                 else:
                     self.surf = pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25))
@@ -58,10 +58,10 @@ class Player(pygame.sprite.Sprite):
                 self.elapsed = now
             self.rect.x = self.rect.x + self.speed
         if key[pygame.K_UP]:
-            if self.onground is True:
-                if self.walking_right is True:
+            if self.onground:
+                if self.walking_right:
                     self.surf = pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25))
-                elif self.walking_right is False:
+                elif not self.walking_right:
                     self.surf = pygame.transform.flip(
                         pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25)), True, False)
                 print("jump")
@@ -74,19 +74,19 @@ class Player(pygame.sprite.Sprite):
                 # self.rect.y = self.rect.y - self.jump_height
                 # Idee für neu Implementation siehe jump()
                 self.jump()
-        if self.onground is True and not key[pygame.K_UP] and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
+        if self.onground and not key[pygame.K_UP] and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
             now = pygame.time.get_ticks()
             # print(now - self.elapsed)
             if self.idle_anim >= len(image_sprite_idle):
                 self.idle_anim = 0
             if now - self.elapsed > 250:
-                if self.walking_right is True:
+                if self.walking_right:
                     self.surf = image_sprite_idle[self.idle_anim]
                 else:
                     self.surf = pygame.transform.flip(image_sprite_idle[self.idle_anim], True, False)
                 self.idle_anim = self.idle_anim + 1
                 self.elapsed = now
-        if self.is_jumping is True:
+        if self.is_jumping:
             self.gravity = 5
             self.jump_height = self.jump_height - 5
         if self.jump_height <= 0:

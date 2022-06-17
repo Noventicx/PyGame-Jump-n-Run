@@ -28,7 +28,7 @@ while running:
     if pygame.event.get(QUIT):
         running = False
 
-    if constants.end_state is True:
+    if constants.end_state:
         constants.end_state = False
         manager.go_to(EndState())
 
