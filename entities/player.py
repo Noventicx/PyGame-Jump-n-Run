@@ -69,10 +69,7 @@ class Player(pygame.sprite.Sprite):
                 effect = pygame.mixer.Sound('music/jump.mp3')
                 effect.set_volume(0.05)
                 effect.play()
-                # TODO nochmal neue Idee ausarbeiten ist eigentlich kein Sprung
                 self.onground = False
-                # self.rect.y = self.rect.y - self.jump_height
-                # Idee für neu Implementation siehe jump()
                 self.jump()
         if self.onground and not key[pygame.K_UP] and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
             now = pygame.time.get_ticks()

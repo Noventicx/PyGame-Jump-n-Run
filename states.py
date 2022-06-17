@@ -51,6 +51,9 @@ class SplashState(State):
         font = pygame.font.SysFont(None, 32)
         title = font.render("Splash Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
+        info = font.render("Leertaste drücken zum fortfahren", False, WHITE)
+        info_rect = info.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        screen.blit(info, info_rect)
         screen.blit(title, title_rect)
 
     def events(self, events):
@@ -90,6 +93,9 @@ class MenuState(State):
         exit_text = font.render("Exit", False, WHITE)
         exit_rect = exit_text.get_rect(center=(SCREEN_WIDTH / 2, 110))
         screen.blit(exit_text, exit_rect)
+        howto_text = font.render("* auswählen mit den Pfeiltasten, bestätigen mit Enter", False, WHITE)
+        howto_rect = howto_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 15))
+        screen.blit(howto_text, howto_rect)
         # der ausgewählte Text wird grün überzeichnet
         if selected == 0:
             play_text = font.render("Play", False, GREEN)
@@ -158,9 +164,19 @@ class InfoState(State):
         title = font.render("Info Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
         screen.blit(title, title_rect)
-        text = font.render("Info für die Steuerung hier vlt anzeigen", False, WHITE)
-        text_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 50))
-        screen.blit(text, text_rect)
+        steuerungs_text = font.render("Steuerung: Bewegen mit den Pfeiltasten, springen mit Pfeiltaste nach oben", False, WHITE)
+        gegner_text = font.render("Gegner: Alle roten Blöcke töten, bewegende Gegner können durch eine Sprung von "
+                                  "oben getötet werden",
+                           False, WHITE)
+        checkpoint_text = font.render("Checkpoint: speichert die Position des Spieler, so dass das Level nicht von "
+                                      "vorne begonnen werden muss",
+                           False, WHITE)
+        steuerungs_text_rect = steuerungs_text.get_rect(center=(SCREEN_WIDTH / 2, 50))
+        gegner_text_rect = gegner_text.get_rect(center=(SCREEN_WIDTH / 2, 70))
+        checkpoint_text_rect = checkpoint_text.get_rect(center=(SCREEN_WIDTH / 2, 90))
+        screen.blit(steuerungs_text, steuerungs_text_rect)
+        screen.blit(gegner_text, gegner_text_rect)
+        screen.blit(checkpoint_text, checkpoint_text_rect)
 
     def events(self, events):
         for e in events:
