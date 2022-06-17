@@ -6,8 +6,6 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super(Player, self).__init__()
-        # self.surf = pygame.Surface((25, 25))
-        # self.surf.fill((255, 0, 255))
         self.surf = pygame.transform.scale(pygame.image.load("sprites/player/idle1.png"), (25, 25))
         self.rect = self.surf.get_rect()
         self.speed = 2
