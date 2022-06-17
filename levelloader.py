@@ -1,8 +1,6 @@
 import os.path
-
 import pygame
 from pygame import mixer
-
 import constants
 import sqlite
 from entities.enemies import MovingEnemy

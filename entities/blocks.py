@@ -1,7 +1,5 @@
 import pygame
 
-from constants import WHITE, GREEN, RED, BLUE, YELLOW
-
 
 # In dieser Datei werden alle Blöcke erstellt. Die Basis aller Block ist ein rect von width = height
 
@@ -30,7 +28,7 @@ class MovingWhiteBlock(pygame.sprite.Sprite):
         self.rect.x = x * 100
         self.rect.y = y * 100
         self.moves_right = False
-        self.speed = 1
+        self.speed = 2
 
     def update(self):
         if self.moves_right is True:
@@ -43,9 +41,9 @@ class FinishBlock(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super(FinishBlock, self).__init__()
-        #self.surf = pygame.Surface((100, 100))
-        #self.surf.fill(GREEN)
-        #self.rect = self.surf.get_rect()
+        # self.surf = pygame.Surface((100, 100))
+        # self.surf.fill(GREEN)
+        # self.rect = self.surf.get_rect()
         self.surf = pygame.transform.scale(pygame.image.load("sprites/blocks/finish.png"), (50, 50))
         self.rect = self.surf.get_rect()
         self.rect.x = x * 100 + 25
@@ -56,9 +54,9 @@ class Spike(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super(Spike, self).__init__()
-        #self.surf = pygame.Surface((100, 100))
-        #self.surf.fill(RED)
-        #self.rect = self.surf.get_rect()
+        # self.surf = pygame.Surface((100, 100))
+        # self.surf.fill(RED)
+        # self.rect = self.surf.get_rect()
         self.surf = pygame.transform.scale(pygame.image.load("sprites/blocks/spike.png"), (100, 100))
         self.rect = self.surf.get_rect()
         self.rect.x = x * 100
@@ -69,9 +67,9 @@ class SmallSpikeBottom(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super(SmallSpikeBottom, self).__init__()
-        #self.surf = pygame.Surface((100, 25))
-        #self.surf.fill(RED)
-        #self.rect = self.surf.get_rect()
+        # self.surf = pygame.Surface((100, 25))
+        # self.surf.fill(RED)
+        # self.rect = self.surf.get_rect()
         self.surf = pygame.transform.scale(pygame.image.load("sprites/blocks/spikesmall.png"), (100, 25))
         self.rect = self.surf.get_rect()
         self.rect.x = x * 100
@@ -82,10 +80,11 @@ class SmallSpikeTop(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super(SmallSpikeTop, self).__init__()
-        #self.surf = pygame.Surface((100, 25))
-        #self.surf.fill(RED)
-        #self.rect = self.surf.get_rect()
-        self.surf = pygame.transform.flip(pygame.transform.scale(pygame.image.load("sprites/blocks/spikesmall.png"), (100, 25)), False, True)
+        # self.surf = pygame.Surface((100, 25))
+        # self.surf.fill(RED)
+        # self.rect = self.surf.get_rect()
+        self.surf = pygame.transform.flip(
+            pygame.transform.scale(pygame.image.load("sprites/blocks/spikesmall.png"), (100, 25)), False, True)
         self.rect = self.surf.get_rect()
         self.rect.x = x * 100
         self.rect.y = y * 100

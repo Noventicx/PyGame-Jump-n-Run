@@ -1,5 +1,4 @@
 import pygame.draw
-
 import constants
 
 
@@ -11,7 +10,7 @@ class Player(pygame.sprite.Sprite):
         # self.surf.fill((255, 0, 255))
         self.surf = pygame.transform.scale(pygame.image.load("sprites/player/idle1.png"), (25, 25))
         self.rect = self.surf.get_rect()
-        self.speed = 1
+        self.speed = 2
         self.start_x = 100 * x + 37.5
         self.start_y = 100 * y + 75
         self.rect.x = 100 * x + 37.5
@@ -68,6 +67,7 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.transform.flip(
                         pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25)), True, False)
                 print("jump")
+                # Musik beim Springen
                 effect = pygame.mixer.Sound('music/jump.mp3')
                 effect.set_volume(0.05)
                 effect.play()
@@ -94,11 +94,12 @@ class Player(pygame.sprite.Sprite):
         if self.jump_height <= 0:
             self.is_jumping = False
             self.jump_height = 130
-            self.gravity = -1
+            self.gravity = -2
 
     def jump(self):
         self.is_jumping = True
 
+    # Anzahl der Tode wird um 1 erhöht
     def kill(self):
         self.rect.x = self.start_x
         self.rect.y = self.start_y

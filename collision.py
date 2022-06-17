@@ -1,10 +1,10 @@
 import pygame
-from pygame import mixer
 
 import constants
 from entities.spritegroups import whiteblocks, players, finishblocks, spikes, checkpoints, enemies, movingwhiteblocks, \
     coins
 from levelloader import LevelLoader
+
 
 # mit dieser Funktion wird die Kolision zwischen allen möglichen Sprites und Spritesgroups getestet
 def check_collision():
@@ -31,7 +31,7 @@ def check_collision():
                     player.onground = False
                     if player.is_jumping is True:
                         player.jump_height = 0
-
+        # hier wird überprüft ob der Spieler springt oder in eine Richtung läuft.
         for movingwhiteblock in movingwhiteblocks:
             collision = pygame.Rect.colliderect(player.rect, movingwhiteblock.rect)
             if collision:
@@ -56,7 +56,7 @@ def check_collision():
                     print("top")
                     player.rect.top = movingwhiteblock.rect.bottom
                     player.onground = False
-
+        # Nach einem erfolgreichen Level werden alle Daten zurückgesetzt.
         for finishblock in finishblocks:
             collision = pygame.Rect.colliderect(player.rect, finishblock.rect)
             if collision:
@@ -71,13 +71,13 @@ def check_collision():
                 enemies.empty()
                 checkpoints.empty()
                 LevelLoader.gen_level_group(constants.current_level)
-
+        # Eine Kollision mit einem Spike tötet den spieler
         for spike in spikes:
             collision = pygame.Rect.colliderect(player.rect, spike.rect)
             if collision:
                 print("spike")
                 player.kill()
-
+        # Eine Kollision mit einem Enemy tötet den Spieler, dabei wird kill.mp3 gespielt.
         for enemy in enemies:
             collision = pygame.Rect.colliderect(player.rect, enemy.rect)
             if collision:
@@ -90,7 +90,7 @@ def check_collision():
                 else:
                     print("killed by enemy")
                     player.kill()
-
+        # Checkpoint wird erstellt und kann benutzt werden
         for checkpoint in checkpoints:
             collision = pygame.Rect.colliderect(player.rect, checkpoint.rect)
             if collision and checkpoint.checked is False:
@@ -99,10 +99,11 @@ def check_collision():
                 effect.set_volume(0.06)
                 effect.play()
                 print("checkpoint")
-                checkpoint.surf = pygame.transform.scale(pygame.image.load("sprites/blocks/checkpoint_check.png"), (50, 50))
+                checkpoint.surf = pygame.transform.scale(pygame.image.load("sprites/blocks/checkpoint_check.png"),
+                                                         (50, 50))
                 player.start_x = checkpoint.rect.x + 12.5
                 player.start_y = checkpoint.rect.y + 25
-
+        # Eine Kollision mit einem Coin vergößert die Anzahl der gesammelten Coins
         for coin in coins:
             collision = pygame.Rect.colliderect(player.rect, coin.rect)
             if collision:

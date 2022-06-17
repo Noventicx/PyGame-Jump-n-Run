@@ -1,8 +1,6 @@
 import pygame
 
-from constants import RED
-
-
+# In dieser Datei werden Enemies erstellt.
 class MovingEnemy(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
