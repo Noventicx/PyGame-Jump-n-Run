@@ -24,7 +24,7 @@ class Player(pygame.sprite.Sprite):
 
     # logik für die Fortbewegung und Animationen
     def update(self):
-        self.rect.y = self.rect.y - self.gravity
+        self.rect.y -= self.gravity
         key = pygame.key.get_pressed()
         image_sprite_walking = [pygame.transform.scale(pygame.image.load("sprites/player/walking1.png"), (25, 25)),
                                 pygame.transform.scale(pygame.image.load("sprites/player/walking2.png"), (25, 25))]
@@ -41,9 +41,9 @@ class Player(pygame.sprite.Sprite):
                 else:
                     self.surf = pygame.transform.flip(
                         pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25)), True, False)
-                self.walking_anim = self.walking_anim + 1
+                self.walking_anim += 1
                 self.elapsed = now
-            self.rect.x = self.rect.x - self.speed
+            self.rect.x -= self.speed
         if key[pygame.K_RIGHT]:
             now = pygame.time.get_ticks()
             self.walking_right = True
@@ -54,9 +54,9 @@ class Player(pygame.sprite.Sprite):
                     self.surf = image_sprite_walking[self.walking_anim]
                 else:
                     self.surf = pygame.transform.scale(pygame.image.load("sprites/player/jumping.png"), (25, 25))
-                self.walking_anim = self.walking_anim + 1
+                self.walking_anim += 1
                 self.elapsed = now
-            self.rect.x = self.rect.x + self.speed
+            self.rect.x += self.speed
         if key[pygame.K_UP]:
             if self.onground:
                 if self.walking_right:
@@ -81,11 +81,11 @@ class Player(pygame.sprite.Sprite):
                     self.surf = image_sprite_idle[self.idle_anim]
                 else:
                     self.surf = pygame.transform.flip(image_sprite_idle[self.idle_anim], True, False)
-                self.idle_anim = self.idle_anim + 1
+                self.idle_anim += 1
                 self.elapsed = now
         if self.is_jumping:
             self.gravity = 5
-            self.jump_height = self.jump_height - 5
+            self.jump_height -= 5
         if self.jump_height <= 0:
             self.is_jumping = False
             self.jump_height = 130
@@ -98,4 +98,4 @@ class Player(pygame.sprite.Sprite):
     def kill(self):
         self.rect.x = self.start_x
         self.rect.y = self.start_y
-        constants.current_deaths = constants.current_deaths + 1
+        constants.current_deaths += 1

@@ -1,13 +1,11 @@
 import pygame
 
+
 # In dieser Datei werden Enemies erstellt.
 class MovingEnemy(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super(MovingEnemy, self).__init__()
-        # self.surf = pygame.Surface((100, 25))
-        # self.surf.fill(RED)
-        # self.rect = self.surf.get_rect()
         self.surf = pygame.transform.flip(
             pygame.transform.scale(pygame.image.load("sprites/enemies/enemy.png"), (75, 25)), True, False)
         self.rect = self.surf.get_rect()
@@ -20,8 +18,8 @@ class MovingEnemy(pygame.sprite.Sprite):
     def update(self):
         if self.moves_right:
             self.surf = pygame.transform.scale(pygame.image.load("sprites/enemies/enemy.png"), (75, 25))
-            self.rect.x = self.rect.x + self.speed
+            self.rect.x += self.speed
         elif not self.moves_right:
             self.surf = pygame.transform.flip(
                 pygame.transform.scale(pygame.image.load("sprites/enemies/enemy.png"), (75, 25)), True, False)
-            self.rect.x = self.rect.x - self.speed
+            self.rect.x -= self.speed

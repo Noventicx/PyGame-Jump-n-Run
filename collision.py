@@ -40,9 +40,9 @@ def check_collision():
                     print("bottom")
                     player.rect.bottom = movingwhiteblock.rect.top
                     if movingwhiteblock.moves_right:
-                        player.rect.x = player.rect.x + movingwhiteblock.speed
+                        player.rect.x += movingwhiteblock.speed
                     elif not movingwhiteblock.moves_right:
-                        player.rect.x = player.rect.x - movingwhiteblock.speed
+                        player.rect.x -= movingwhiteblock.speed
                     player.onground = True
                 elif player.rect.centerx > movingwhiteblock.rect.centerx:
                     print("left")
@@ -61,7 +61,7 @@ def check_collision():
             collision = pygame.Rect.colliderect(player.rect, finishblock.rect)
             if collision:
                 print("finish")
-                constants.current_level = constants.current_level + 1
+                constants.current_level += 1
                 whiteblocks.empty()
                 movingwhiteblocks.empty()
                 finishblocks.empty()
@@ -108,7 +108,7 @@ def check_collision():
             collision = pygame.Rect.colliderect(player.rect, coin.rect)
             if collision:
                 print("coin")
-                constants.current_coins = constants.current_coins + 1
+                constants.current_coins += 1
                 effect = pygame.mixer.Sound('music/coin.mp3')
                 effect.set_volume(0.05)
                 effect.play()

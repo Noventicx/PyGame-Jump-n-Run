@@ -74,7 +74,7 @@ class LevelLoader:
                     players.add(player)
                 if i == "y":
                     # zeigt an das die Zeile zuende ist
-                    y = y + 1
+                    y += 1
                     x = -1
                 if i != "y":
-                    x = x + 1
+                    x += 1

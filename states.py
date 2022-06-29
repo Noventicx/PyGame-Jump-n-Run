@@ -1,5 +1,5 @@
 import pygame.draw
-from pygame import KEYDOWN, K_SPACE, K_RETURN, K_UP, K_DOWN, KEYUP, K_ESCAPE, mixer
+from pygame import KEYDOWN, K_RETURN, K_UP, K_DOWN, KEYUP, K_ESCAPE, mixer
 
 import constants
 import sqlite
@@ -51,14 +51,14 @@ class SplashState(State):
         font = pygame.font.SysFont(None, 32)
         title = font.render("Splash Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
-        info = font.render("Leertaste drücken zum fortfahren", False, WHITE)
+        info = font.render("Enter drücken zum fortfahren", False, WHITE)
         info_rect = info.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
         screen.blit(info, info_rect)
         screen.blit(title, title_rect)
 
     def events(self, events):
         for e in events:
-            if e.type == KEYDOWN and e.key == K_SPACE:
+            if e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(MenuState())
 
     def clear(self, screen):
@@ -113,8 +113,6 @@ class MenuState(State):
     def events(self, events):
         global selected
         for e in events:
-            if e.type == KEYDOWN and e.key == K_SPACE:
-                self.manager.go_to(GameState())
             if selected == 0 and e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(GameState())
                 mixer.init()
@@ -164,13 +162,14 @@ class InfoState(State):
         title = font.render("Info Screen", False, WHITE)
         title_rect = title.get_rect(center=(SCREEN_WIDTH / 2, 10))
         screen.blit(title, title_rect)
-        steuerungs_text = font.render("Steuerung: Bewegen mit den Pfeiltasten, springen mit Pfeiltaste nach oben", False, WHITE)
+        steuerungs_text = font.render("Steuerung: Bewegen mit den Pfeiltasten, springen mit Pfeiltaste nach oben",
+                                      False, WHITE)
         gegner_text = font.render("Gegner: Alle roten Blöcke töten, bewegende Gegner können durch eine Sprung von "
                                   "oben getötet werden",
-                           False, WHITE)
+                                  False, WHITE)
         checkpoint_text = font.render("Checkpoint: speichert die Position des Spieler, so dass das Level nicht von "
                                       "vorne begonnen werden muss",
-                           False, WHITE)
+                                      False, WHITE)
         steuerungs_text_rect = steuerungs_text.get_rect(center=(SCREEN_WIDTH / 2, 50))
         gegner_text_rect = gegner_text.get_rect(center=(SCREEN_WIDTH / 2, 70))
         checkpoint_text_rect = checkpoint_text.get_rect(center=(SCREEN_WIDTH / 2, 90))
@@ -180,7 +179,7 @@ class InfoState(State):
 
     def events(self, events):
         for e in events:
-            if e.type == KEYDOWN and e.key == K_SPACE:
+            if e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(MenuState())
 
     def clear(self, screen):
@@ -204,7 +203,7 @@ class ScoreState(State):
 
     def events(self, events):
         for e in events:
-            if e.type == KEYDOWN and e.key == K_SPACE:
+            if e.type == KEYDOWN and e.key == K_RETURN:
                 self.manager.go_to(MenuState())
 
     def clear(self, screen):
@@ -256,17 +255,6 @@ class GameState(State):
                 pygame.display.quit()
                 pygame.quit()
                 exit()
-            if e.type == KEYDOWN and e.key == K_SPACE:
-                constants.current_level = constants.current_level + 1
-                whiteblocks.empty()
-                movingwhiteblocks.empty()
-                finishblocks.empty()
-                spikes.empty()
-                coins.empty()
-                players.empty()
-                enemies.empty()
-                checkpoints.empty()
-                LevelLoader.gen_level_group(constants.current_level)
 
     def update(self):
         players.update()
@@ -300,17 +288,7 @@ class EndState(State):
         coin_most_text = font.render("Highscores", False, WHITE)
         coin_most_text_rect = title.get_rect(center=(SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2 + 20))
         screen.blit(coin_most_text, coin_most_text_rect)
-
         sqlite.get_scores(font, screen)
-
-    def events(self, events):
-        for e in events:
-            if e.type == KEYDOWN and e.key == K_SPACE:
-                constants.end_state = False
-                constants.current_level = 1
-                constants.current_coins = 0
-                constants.current_deaths = 0
-                self.manager.go_to(MenuState())
 
     def clear(self, screen):
         screen.fill(constants.BLACK)

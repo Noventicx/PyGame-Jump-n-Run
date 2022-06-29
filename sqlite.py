@@ -28,7 +28,7 @@ def get_scores(font, screen):
         highscore_text_rect = highscore_text.get_rect(
             center=(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2 + 20 * (i + 1)))
         screen.blit(highscore_text, highscore_text_rect)
-        i = i + 1
+        i += 1
 
     cursor.close()
     return res
