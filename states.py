@@ -290,5 +290,10 @@ class EndState(State):
         screen.blit(coin_most_text, coin_most_text_rect)
         sqlite.get_scores(font, screen)
 
+    def events(self, events):
+        for e in events:
+            if e.type == KEYDOWN and e.key == K_RETURN:
+                self.manager.go_to(MenuState())
+
     def clear(self, screen):
         screen.fill(constants.BLACK)
